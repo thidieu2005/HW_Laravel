@@ -1,28 +1,64 @@
 <?php
 
+// namespace App\Http\Controllers;
+
+// use Illuminate\Http\Request;
+// use App\Http\Requests\SignupRequest;
+
+// class SignupController extends Controller
+// {
+//     public function index()
+//     {
+//         return view('signup');
+//     }
+
+//     public function displayInfor(SignupRequest $request)
+//     {
+//         $user = [
+//             'name' => $request->input('name'),
+//             'age' => $request->input('age'),
+//             'date' => $request->input('date'),
+//             'phone' => $request->input('phone'),
+//             'web' => $request->input('web'),
+//             'address' => $request->input('address')
+//         ];
+
+//         return view('signup')->with('user', $user);
+//     }
+// }
+//---------------------------------SESSION
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\SignupRequest;
+use App\Http\Requests\signupRequest;
+use Illuminate\Support\Facades\Session;
 
-class SignupController extends Controller
+class signupController extends Controller
 {
     public function index()
     {
-        return view('signup');
+        // Lấy danh sách người dùng từ session (nếu có)
+        $users = Session::get('users', []);
+        return view('signup', compact('users'));
     }
 
-    public function displayInfor(SignupRequest $request)
+    public function displayInfor(signupRequest $request)
     {
-        $user = [
-            'name' => $request->input('name'),
-            'age' => $request->input('age'),
-            'date' => $request->input('date'),
-            'phone' => $request->input('phone'),
-            'web' => $request->input('web'),
-            'address' => $request->input('address')
+        // Lấy dữ liệu từ form
+        $newUser = [
+            'name' => $request->input("name"),
+            'age' => $request->input("age"),
+            'date' => $request->input("date"),
+            'phone' => $request->input("phone"),
+            'web' => $request->input("web"),
+            'address' => $request->input("address"),
         ];
 
-        return view('signup')->with('user', $user);
+        // Lấy danh sách hiện tại trong session, thêm người mới vào
+        $users = Session::get('users', []);
+        $users[] = $newUser;
+        Session::put('users', $users);
+
+        return view('signup', compact('users'));
     }
 }

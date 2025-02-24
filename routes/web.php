@@ -65,3 +65,19 @@ use App\Http\Controllers\SignupController;
 
 Route::get('/signup', [SignupController::class, 'index']);
 Route::post('/signup', [SignupController::class, 'displayInfor']);
+
+use App\Http\Controllers\GoodController;
+
+Route::get('/goodgood', [GoodController::class, 'getData']);
+
+//use App\Http\Controllers\ProductController;
+
+//Route::get('/products', [ProductController::class, 'index']);
+//Route::post('/products/store', [ProductController::class, 'store']);
+//Route::get('/products/show', [ProductController::class, 'show']);
+//Route::get('/products/clear', [ProductController::class, 'clear']);
+
+
+use App\Http\Controllers\ProductController;
+
+Route::resource('products', ProductController::class);
