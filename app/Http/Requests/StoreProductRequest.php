@@ -1,5 +1,5 @@
 <?php
-//Sao chépChỉnh sửa
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -10,6 +10,7 @@ class StoreProductRequest extends FormRequest
     {
         return true;
     }
+
     public function rules()
     {
         return [
@@ -17,6 +18,7 @@ class StoreProductRequest extends FormRequest
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:1',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }
